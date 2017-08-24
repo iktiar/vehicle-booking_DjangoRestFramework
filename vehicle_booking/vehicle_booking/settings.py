@@ -40,6 +40,7 @@ INSTALLED_APPS = [
     'rest_framework',
     'corsheaders',
     'vehicle.apps.VehicleConfig',
+    'requisitionticket'
 ]
 
 MIDDLEWARE = [
@@ -81,7 +82,7 @@ WSGI_APPLICATION = 'vehicle_booking.wsgi.application'
 DATABASES = {
    'default': {
         'ENGINE': 'django.db.backends.postgresql',
-        'NAME': 'postgres',
+        'NAME': 'vehiclebooking',
         'USER': 'postgres',
         'PASSWORD': '',
         'HOST': 'localhost',

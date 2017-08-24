@@ -1,10 +1,9 @@
-
+from django.db import connection
 from django.contrib.auth.models import User, Group
 from vehicle.models import Vehicle, Driver, RequisitionTicketLog
 
-from rest_framework import viewsets, generics
-from vehicle.serializers import ( UserSerializer, GroupSerializer, VehicleSerializer, DriverSerializer,
-                                  RequisitionTicketLogSerializer, RequisitionTicketLogForAdminSerializer, )
+from rest_framework import viewsets, generics, views, response
+from vehicle.serializers import ( UserSerializer, GroupSerializer, VehicleSerializer, DriverSerializer, )
 
 
 class UserViewSet(viewsets.ModelViewSet):
@@ -41,20 +40,34 @@ class ListDrivers(generics.ListCreateAPIView):
     serializer_class = DriverSerializer
 
 
-class ListRequisitionTicketLogForAdmin(generics.ListCreateAPIView):
+class GetAvaialableVehiclesByDate(views.APIView):
     """
-    API endpoint that allows groups to be viewed or edited.
+    get free vehicles by data range
 
     """
 
-    queryset = RequisitionTicketLog.objects.all()
-    serializer_class = RequisitionTicketLogForAdminSerializer
+    def get(self, request, format=None, *args, **kwargs):
+        '''
+            Override default get
+        '''
+        cursor = connection.cursor()
+        cursor.execute('''select vehicle_id, vehicle_vehicle.vehicle_number
+                        from vehicle_vehicle
+                        WHERE vehicle_id NOT IN
+                        (
+                        select vehicle_requisitionticketlog.vehicle_id_id as vehicle_id
+                        from vehicle_requisitionticketlog
+                        WHERE
+                             ticket_status = 'Resolved'
+                            AND (from_date_time, to_date_time) OVERLAPS ('2017-01-01 00:00:00+00', '2017-01-04 00:00:00')
 
+                        )''')
 
-class ListRequisitionTicketLogs(generics.CreateAPIView):
+        result = cursor.fetchall()
 
-    queryset = RequisitionTicketLog.objects.all()
-    serializer_class = RequisitionTicketLogSerializer
+        free_vehicles = {}
+        for i in result:
+            free_vehicles['id'] = i[0]
+            free_vehicles['number'] = i[1]
 
-    def perform_create(self, serializer):
-        serializer.save(submitedUser=self.request.user)
+        return response.Response(free_vehicles)

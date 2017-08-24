@@ -16,7 +16,8 @@ Including another URLconf
 
 from django.conf.urls import url, include
 from rest_framework import routers
-from vehicle.views import ListVehicles, ListDrivers, ListRequisitionTicketLogs, ListRequisitionTicketLogForAdmin
+from vehicle.views import ListVehicles, ListDrivers, GetAvaialableVehiclesByDate
+#from requisitionticket.views import RequisitionTicketLogsRequestView, ListRequisitionTicketLogForAdmin
 from django.contrib import admin
 
 #router = routers.DefaultRouter()
@@ -29,8 +30,9 @@ from django.contrib import admin
 urlpatterns = [
     #url(r'^', include(router.urls)),
 
-    url(r'^api/car-requisition-admin', ListRequisitionTicketLogForAdmin.as_view(), name='list_requisition_ticket_for_admin'),
-    url(r'^api/car-requisition', ListRequisitionTicketLogs.as_view(), name='list_requisition_ticket'),
+   #url(r'^api/car-requisition-admin', ListRequisitionTicketLogForAdmin.as_view(), name='list_requisition_ticket_for_admin'),
+    url(r'^api/requisitionticket/', include("requisitionticket.urls", namespace='requisitionticket-api')),
+    url(r'^api/free-vehicles/', GetAvaialableVehiclesByDate.as_view(), name='list_free_cars'),
     url(r'^api/vehicle', ListVehicles.as_view(), name='list_vehicles'),
     url(r'^api/driver', ListDrivers.as_view(), name='list_drivers'),
     url(r'^api-auth/', include('rest_framework.urls', namespace='rest_framework')),

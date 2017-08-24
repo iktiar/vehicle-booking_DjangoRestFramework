@@ -17,15 +17,22 @@ class GroupSerializer(serializers.HyperlinkedModelSerializer):
 
 
 class VehicleSerializer(serializers.ModelSerializer):
+    vehicles = serializers.SerializerMethodField(source='get_vehicles')
+
     class Meta:
         model = Vehicle
-        fields = ('vehicleNumber','type','driverId','status')
+        fields = ('vehicle_id','vehicle_number','type','driver_id','status','vehicles')
 
+    def get_vehicles(self, obj):
+        '''
+            Get title as user full name
+        '''
+        return 'testdata'
 
 class DriverSerializer(serializers.ModelSerializer):
     class Meta:
         model = Driver
-        fields = ('driverId','name','mobile','address','created_at')
+        fields = ('driver_id','name','mobile','address','created_at')
 
 """
 requisitionTicketLogId = models.AutoField(primary_key=True)
@@ -41,15 +48,3 @@ requisitionTicketLogId = models.AutoField(primary_key=True)
     modified_at = models.DateTimeField(auto_now_add=True)
 """
 
-
-class RequisitionTicketLogForAdminSerializer(serializers.ModelSerializer):
-    class Meta:
-        model = RequisitionTicketLog
-        fields = ('requisitionTicketLogId','type','origin','destination','note','fromDateTime','toDateTime','driverId',
-                  'ticketStatus')
-
-
-class RequisitionTicketLogSerializer(serializers.ModelSerializer):
-    class Meta:
-        model = RequisitionTicketLog
-        fields = ('type','origin','destination','note','fromDateTime','toDateTime')

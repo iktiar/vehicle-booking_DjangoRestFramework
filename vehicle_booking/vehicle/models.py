@@ -10,26 +10,38 @@ class Vehicle(models.Model):
         ('Car', 'Car'),
     )
     VEHICLE_STATUS = (
-        ('Active', 'Active'),
-        ('InActive', 'InActive')
+        ('Free', 'Free'),
+        ('InActive', 'InActive'),
+        ('Booked','Booked')
     )
-    vehicleId = models.AutoField(primary_key=True)
-    vehicleNumber = models.CharField(max_length=100, blank=False, unique=True)
+    vehicle_id = models.AutoField(primary_key=True)
+    vehicle_number = models.CharField(max_length=100, blank=False, unique=True)
     type = models.CharField(max_length=8, choices=VEHICLE_TYPES)
-    driverId = models.ForeignKey('Driver', blank=True)
+    driver_id = models.ForeignKey('Driver', null=True)
     created_at = models.DateTimeField(auto_now_add=True)
     modified_at = models.DateTimeField(auto_now_add=True)
     status = models.CharField(max_length=8, choices=VEHICLE_STATUS)
 
+    def __unicode__(self):
+        return u'%s' % (self.vehicle_number)
+
+    def __str__(self):
+        return self.vehicle_number
+
 
 class Driver(models.Model):
-    driverId = models.AutoField(primary_key=True)
+    driver_id = models.AutoField(primary_key=True)
     name = models.CharField(max_length=100, blank=False)
     mobile = models.CharField(max_length=100, blank=False)
     address = models.CharField(max_length=100, blank=True)
     created_at = models.DateTimeField(auto_now_add=True)
     modified_at = models.DateTimeField(auto_now_add=True)
 
+    def __unicode__(self):
+        return u'%s' % (self.name)
+
+    def __str__(self):
+        return self.name
 
 class RequisitionTicketLog(models.Model):
     VEHICLE_TYPES = (
@@ -46,19 +58,29 @@ class RequisitionTicketLog(models.Model):
         ('Resolved', Resolved),
         ('Rescheduled', Rescheduled),
     )
-    requisitionTicketLogId = models.AutoField(primary_key=True)
+    requisitionTicketLog_id = models.AutoField(primary_key=True)
     type = models.CharField(max_length=8, choices=VEHICLE_TYPES)
     origin = models.CharField(max_length=255, blank=False)
     destination = models.CharField(max_length=255, blank=False)
-    driverId = models.ForeignKey('Driver', null=True)
-    ticketStatus = models.CharField(max_length=10, choices=REQUISITION_TICKET_TYPES, default=Submitted)
+    driver_id = models.ForeignKey('Driver', null=True)
+    driver_name = models.CharField(max_length=100, null=True)
+    vehicle_id = models.ForeignKey('Vehicle',null=True)
+    vehicle_number = models.CharField(max_length=100, null=True)
+    ticket_status = models.CharField(max_length=10, choices=REQUISITION_TICKET_TYPES, default=Submitted)
     note = models.CharField(max_length=255, blank=True)
-    fromDateTime = models.DateTimeField(blank=False)
-    toDateTime = models.DateTimeField(blank=False)
-    submitedUser = models.ForeignKey(settings.AUTH_USER_MODEL, default=1)
+    from_date_time = models.DateTimeField(blank=False)
+    to_date_time = models.DateTimeField(blank=False)
+    submited_user = models.ForeignKey(settings.AUTH_USER_MODEL, default=1)
     created_at = models.DateTimeField(auto_now_add=True)
     modified_at = models.DateTimeField(auto_now_add=True)
 
+    def __str__(self):
+        return self.requisitionTicketLog_id
+
+
+    #get all vechie in book range
+
+    #get all vehicle - booked vechile in bookrange
 
 
 
