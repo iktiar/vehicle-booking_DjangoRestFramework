@@ -10,8 +10,8 @@ class RequisitionTicketLogListSerializer(ModelSerializer):
 
     class Meta:
         model = RequisitionTicketLog
-        fields = ('requisitionTicketLog_id', 'vehicle_id', 'vehicle_number','type','origin','destination','note','from_date_time','to_date_time','driver_id',
-                  'ticket_status')
+        fields = ('requisitionTicketLog_id', 'vehicle_id', 'vehicle_number','vehicle_type','origin','destination','note','from_date_time','to_date_time','driver_id',
+                  'ticket_status', 'passenger_number')
 """
 test def
 """
@@ -24,11 +24,11 @@ class RequisitionTicketLogDeatilSerializer(ModelSerializer):
 
     class Meta:
         model = RequisitionTicketLog
-        fields = ('requisitionTicketLog_id', 'vehicle_id', 'type','origin','destination','note','from_date_time','to_date_time','driver_id',
-                  'ticket_status')
+        fields = ('requisitionTicketLog_id', 'vehicle_id', 'vehicle_type','origin','destination','note','from_date_time','to_date_time','driver_id',
+                  'ticket_status', 'passenger_number')
 
 
 class RequisitionTicketLogRequestCreateSerializer(ModelSerializer):
     class Meta:
         model = RequisitionTicketLog
-        fields = ('type','origin','destination','note','from_date_time','to_date_time')
+        fields = ('vehicle_type','origin','destination','note','from_date_time','to_date_time','passenger_number')

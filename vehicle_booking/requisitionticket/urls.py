@@ -12,7 +12,4 @@ urlpatterns = [
     url(r'^(?P<pk>[\w-]+)/edit/$', RequisitionTicketLogUpdateView.as_view(), name='update'),
 ]
 
-"""
-   url(r'^admin', ListRequisitionTicketLogForAdmin.as_view(), name='list_requisition_ticket_for_admin'),
-   url(r'^api/car-requisition/', RequisitionTicketLogsCreateView.as_view(), name='list_car_requisition'),
-"""
+

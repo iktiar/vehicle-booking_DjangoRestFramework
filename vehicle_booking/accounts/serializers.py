@@ -6,6 +6,7 @@ from django.contrib.auth import get_user_model
 from rest_framework.serializers import (
     CharField,
     EmailField,
+    BooleanField,
     HyperlinkedIdentityField,
     ModelSerializer,
     SerializerMethodField,
@@ -92,14 +93,15 @@ class UserCreateSerializer(ModelSerializer):
 class UserLoginSerializer(ModelSerializer):
     token = CharField(allow_blank=True, read_only=True)
     username = CharField()
-    email = EmailField(label='Email Address')
     class Meta:
         model = User
         fields = [
+            'id',
             'username',
             'email',
             'password',
-            'token',
+            'is_superuser',
+            'token'
             
         ]
         extra_kwargs = {"password":

@@ -21,7 +21,7 @@ class VehicleSerializer(serializers.ModelSerializer):
 
     class Meta:
         model = Vehicle
-        fields = ('vehicle_id','vehicle_number','type','driver_id','status','vehicles')
+        fields = ('vehicle_id','vehicle_number','vehicle_type','driver_id','status','vehicles')
 
     def get_vehicles(self, obj):
         '''
