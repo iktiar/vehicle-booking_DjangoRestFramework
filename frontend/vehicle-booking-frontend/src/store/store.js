@@ -8,7 +8,8 @@ export default new Vuex.Store({
         todos: [],
         newTodo: '',
         token: null,
-        isSuperUser: null
+        isSuperUser: null,
+        username: null
     },
     mutations: {
         GET_TODO (state, todo) {
@@ -46,7 +47,12 @@ export default new Vuex.Store({
         },
         SET_USER_ROLE (state, rolestatus) {
             state.isSuperUser = rolestatus
+        },
+        SET_USER_NAME (state, username) {
+            console.log(username)
+            state.username = username
         }
+
     },
     actions: {
         getTodo ({commit}, todo) {
@@ -75,8 +81,11 @@ export default new Vuex.Store({
         },
         setUserRole ({commit}, rolestatus) {
             commit('SET_USER_ROLE', rolestatus)
+        },
+        setUserName ({commit}, username) {
+            console.log('store setUserName ..' + username)
+            commit('SET_USER_NAME', username)
         }
-
     },
     getters: {
         newTodo: state => state.newTodo,
@@ -86,7 +95,8 @@ export default new Vuex.Store({
             return state.token != null
         },
         token: state => state.token,
-        isSuperUser: state => state.isSuperUser
+        isSuperUser: state => state.isSuperUser,
+        username: state => state.username
     }
 
 })

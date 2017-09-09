@@ -1,9 +1,8 @@
 <template>
     <div class="col-xs-12">
-        <h1>Requisition tickets -admin component</h1>
-        <button class="btn btn-primary" @click="fetchData">Get Data</button>
+        <h1>Requisition tickets log</h1>
         <ul class="list-group">
-            <li class="list-group-item" v-for="item in requisitionTicketLogs.messages">{{ item.requisitionTicketLog_id }} - {{ item.vehicle_type }} - {{ formatDatetime(item.from_date_time)}} - {{ formatDatetime(item.to_date_time)}} - {{ item.ticket_status }}
+            <li class="list-group-item" v-for="item in requisitionTicketLogs.messages">{{ item.origin }} to {{ item.destination }} - {{ item.vehicle_type }} - from: {{ formatDatetime(item.from_date_time)}} to: {{ formatDatetime(item.to_date_time)}} -  by: {{ item.submited_user}} status: {{ item.ticket_status }}
             <div class="btn-group">
                 <button type="button" @click="edit(item.requisitionTicketLog_id)" class="btn btn-default btn-sm">
                     <span class="glyphicon glyphicon-edit"></span> Edit
@@ -50,7 +49,6 @@ export default {
         }
     },
     created () {
-        // console.log(this.$store.getters.token)
         this.fetchData()
     }
 

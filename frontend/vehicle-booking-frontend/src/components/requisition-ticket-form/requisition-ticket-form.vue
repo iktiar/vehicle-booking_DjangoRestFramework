@@ -8,11 +8,10 @@
             <label class="">Vehicle type</label>
             <select class="form-control" v-model="vehicle_type" required>
                 <option disabled value="" >Please select vehicle</option>
-                <option>CAR</option>
+                <option>Car</option>
                 <option>MicroBus</option>
                 <option>Bus</option>
             </select>
-            <span>Selected: {{ vehicle_type }}</span>
         </div>
         <div class="form-group">
             <label class="">Origin</label>

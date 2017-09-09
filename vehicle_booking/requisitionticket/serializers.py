@@ -11,7 +11,7 @@ class RequisitionTicketLogListSerializer(ModelSerializer):
     class Meta:
         model = RequisitionTicketLog
         fields = ('requisitionTicketLog_id', 'vehicle_id', 'vehicle_number','vehicle_type','origin','destination','note','from_date_time','to_date_time','driver_id',
-                  'ticket_status', 'passenger_number')
+                  'ticket_status', 'passenger_number', 'submited_user')
 """
 test def
 """

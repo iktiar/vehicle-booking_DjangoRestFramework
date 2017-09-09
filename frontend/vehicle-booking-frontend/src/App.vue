@@ -4,9 +4,9 @@
     <div class="row">
         <div class="col-xs-12">
             <router-view></router-view>
-            <CompletedTodos></CompletedTodos>
+            <!--  <CompletedTodos></CompletedTodos>
             <GetTodo></GetTodo>
-            <CurrentTodos></CurrentTodos>
+            <CurrentTodos></CurrentTodos> -->
         </div>
     </div>
   </div>

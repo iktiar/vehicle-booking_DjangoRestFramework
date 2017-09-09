@@ -6,6 +6,7 @@
             </div>
 
             <div class="collapse navbar-collapse">
+                
                 <ul  v-if="this.$store.getters.isAuthenticated" class="nav navbar-nav">
                     <router-link to="/requisition-ticket-form" activeClass="active" tag="li"><a>New Requisition</a></router-link>
                 </ul>
@@ -13,11 +14,13 @@
                     <router-link to="/admin/requisition-tickets" activeClass="active" tag="li"><a>All Requisition</a></router-link>
                     <router-link to="/admin/reports" activeClass="active" tag="li"><a>All Reports</a></router-link>
                 </ul>
+
                 <transition>
                 <strong v-if="this.$store.getters.isAuthenticated" class="navbar-text navbar-right">
                     <router-link to="#" v-on:click.native="logOut" activeClass="active" ><a>Log Out</a></router-link>
                 </strong>
                 <strong v-if="!this.$store.getters.isAuthenticated" class="navbar-text navbar-right">
+
                         <router-link to="/login" activeClass="active" ><a>Log In</a></router-link>
                     </strong>
                 </transition>
@@ -49,7 +52,8 @@ export default {
     data () {
         return {
             isDropdownOpen: false,
-            isSuperUser: false
+            isSuperUser: false,
+            userName: false
         }
     },
     methods: {

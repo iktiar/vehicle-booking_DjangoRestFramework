@@ -6,6 +6,7 @@
                     Log In
                 </h3>
             </div>
+            <div v-if="error_message" class="alert-denger text-center text-danger">{{ error_message }}</div>
             <div class="panel-body">
                 <div class="pull-left">
                     <input
@@ -44,7 +45,8 @@ export default {
     data () {
         return {
             username: '',
-            password: ''
+            password: '',
+            error_message: ''
         }
     },
     methods: {
@@ -60,7 +62,11 @@ export default {
                 if (data.messages.token) {
                     this.getUserData(data.messages.token)
                     this.$store.dispatch('setToken', data.messages.token)
+                    this.error_message = ''
                 }
+            }, (error) => {
+                this.error_message = 'Invalid  username / password'
+                this.handleError(error)
             })
         },
         getUserData (token) {
@@ -71,7 +77,7 @@ export default {
             this.$http.get('api/getuser/?username=' + this.username, config).then(response => {
                 return response.json()
             }).then(data => {
-                console.log(data.messages[0]['is_superuser'])
+                this.$store.dispatch('setUserName', data.messages[0]['username'])
                 this.$store.dispatch('setUserRole', data.messages[0]['is_superuser'])
                 this.$router.push('/')
             })
