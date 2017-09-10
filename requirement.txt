@@ -1,0 +1,13 @@
+configparser==3.5.0
+Django==1.11.4
+django-cors-headers==2.1.0
+django-debug-toolbar==1.8
+djangorestframework==3.6.3
+djangorestframework-jwt==1.11.0
+mysql-connector==2.1.4
+psycopg2==2.7.3
+Pygments==2.2.0
+PyJWT==1.5.2
+PyMySQL==0.7.11
+pytz==2017.2
+sqlparse==0.2.3
