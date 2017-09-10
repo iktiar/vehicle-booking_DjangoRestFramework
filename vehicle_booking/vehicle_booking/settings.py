@@ -84,9 +84,9 @@ WSGI_APPLICATION = 'vehicle_booking.wsgi.application'
 DATABASES = {
    'default': {
         'ENGINE': 'django.db.backends.postgresql',
-        'NAME': 'vehiclebooking',
-        'USER': 'postgres',
-        'PASSWORD': '',
+        'NAME': 'DATABASE_NAME',
+        'USER': 'DB_USER',
+        'PASSWORD': 'DB_PASSWORD',
         'HOST': 'localhost',
         'PORT': '5432',
     }
