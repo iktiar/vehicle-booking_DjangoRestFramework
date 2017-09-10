@@ -6,7 +6,7 @@
             </div>
 
             <div class="collapse navbar-collapse">
-                
+
                 <ul  v-if="this.$store.getters.isAuthenticated" class="nav navbar-nav">
                     <router-link to="/requisition-ticket-form" activeClass="active" tag="li"><a>New Requisition</a></router-link>
                 </ul>
